@@ -1,0 +1,24 @@
+{
+  "name": "fyn",
+  "version": "1.0.0",
+  "description": "FYN - Modern startup website",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx http-server public -p 3000 -o",
+    "deploy:netlify": "netlify deploy --prod --dir=public",
+    "deploy:vercel": "vercel --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvilgelm/thisfyn.git"
+  },
+  "keywords": [
+    "startup",
+    "website",
+    "production"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true
+}
+

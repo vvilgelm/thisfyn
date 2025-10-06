@@ -1,0 +1,8 @@
+# FYN - robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://thisfyn.com/sitemap.xml
+
