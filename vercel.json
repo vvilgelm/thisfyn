@@ -2,7 +2,8 @@
   "version": 2,
   "public": true,
   "rewrites": [
-    { "source": "/api/contact", "destination": "/api/contact.js" }
+    { "source": "/api/contact", "destination": "/api/contact.js" },
+    { "source": "/api/create-checkout-session", "destination": "/api/create-checkout-session.js" }
   ],
   "headers": [
     {

@@ -1,7 +1,7 @@
 // Contact Form API Handler
 // Works with both Netlify Functions and Vercel Serverless
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Handle CORS
   const allowedOrigins = ['https://thisfyn.com', 'https://www.thisfyn.com', 'http://localhost:3000'];
   const origin = req.headers.origin;
@@ -105,7 +105,8 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Netlify Functions compatibility
+// Netlify Functions compatibility (if needed)
+/*
 exports.handler = async (event, context) => {
   const req = {
     method: event.httpMethod,
@@ -138,4 +139,5 @@ exports.handler = async (event, context) => {
 
   return await handler(req, res);
 };
+*/
 

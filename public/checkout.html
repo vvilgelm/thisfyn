@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | FYN</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .checkout-page {
+            min-height: 100vh;
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .checkout-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .checkout-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .checkout-header h1 {
+            margin: 0 0 0.5rem;
+            font-size: 2.5rem;
+        }
+        .checkout-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .checkout-content {
+            padding: 3rem 2rem;
+        }
+        .product-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        .product-image {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+        }
+        .product-details {
+            flex: 1;
+        }
+        .product-details h2 {
+            margin: 0 0 0.5rem;
+            font-size: 1.5rem;
+        }
+        .product-details p {
+            margin: 0;
+            color: #6c757d;
+        }
+        .product-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+        .features-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .features-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+        .checkout-actions {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .checkout-btn {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .checkout-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #dee2e6;
+        }
+        .payment-methods span {
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+        .payment-badge {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .loading.active {
+            display: block;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__logo">
+                <a href="/">FYN</a>
+            </div>
+            <ul class="nav__menu">
+                <li><a href="/">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="checkout-page">
+        <div class="checkout-container">
+            <div class="checkout-header">
+                <h1>🚀 Ready to Get Started?</h1>
+                <p>Join thousands of satisfied customers</p>
+            </div>
+            
+            <div class="checkout-content">
+                <div class="product-card">
+                    <div class="product-image">FYN</div>
+                    <div class="product-details">
+                        <h2>FYN Premium Service</h2>
+                        <p>Lifetime access to all premium features</p>
+                    </div>
+                    <div class="product-price">$99</div>
+                </div>
+
+                <ul class="features-list">
+                    <li>Lightning-fast performance optimized for speed</li>
+                    <li>Enterprise-grade security built from the ground up</li>
+                    <li>Unlimited scalability for your growing needs</li>
+                    <li>24/7 priority customer support</li>
+                    <li>Regular updates and new features</li>
+                    <li>30-day money-back guarantee</li>
+                </ul>
+
+                <div class="checkout-actions">
+                    <button id="checkout-button" class="checkout-btn">
+                        Proceed to Secure Checkout
+                    </button>
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>Redirecting to secure checkout...</p>
+                    </div>
+                </div>
+
+                <div class="payment-methods">
+                    <span>Secure payment powered by</span>
+                    <div class="payment-badge">💳 Card</div>
+                    <div class="payment-badge">🛍️ Klarna</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 FYN. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Stripe with your publishable key
+        const stripe = Stripe('pk_live_51PAwjwP4rilIokuluMs0rGTjVc2S11zlAfPdhSwzsAadFo0gJuY7mzX7rgAwm4yTCeA0KEhk3nHKp0CBwKiOiCkK00pYOPLmDr');
+        
+        const checkoutButton = document.getElementById('checkout-button');
+        const loading = document.getElementById('loading');
+
+        checkoutButton.addEventListener('click', async () => {
+            checkoutButton.disabled = true;
+            loading.classList.add('active');
+
+            try {
+                // Create checkout session
+                const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        quantity: 1
+                    }),
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API Error Response:', errorText);
+                    throw new Error(`API request failed: ${response.status} - ${errorText}`);
+                }
+
+                const session = await response.json();
+                console.log('Session response:', session);
+
+                if (session.error) {
+                    throw new Error(session.error);
+                }
+
+                if (!session.sessionId) {
+                    throw new Error('No session ID returned from server');
+                }
+
+                // Redirect to Stripe Checkout
+                const result = await stripe.redirectToCheckout({
+                    sessionId: session.sessionId,
+                });
+
+                if (result.error) {
+                    throw new Error(result.error.message);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error: ' + (error.message || 'Something went wrong. Please try again.'));
+                checkoutButton.disabled = false;
+                loading.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+

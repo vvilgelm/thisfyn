@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful | FYN</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+        .success-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .success-container {
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            padding: 4rem 3rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
+            animation: scaleIn 0.5s ease-out;
+        }
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .success-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #28a745;
+        }
+        .success-container p {
+            font-size: 1.125rem;
+            color: #6c757d;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .session-info {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            font-family: monospace;
+            font-size: 0.875rem;
+            word-break: break-all;
+        }
+        .btn-home {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .next-steps {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #dee2e6;
+        }
+        .next-steps h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .next-steps li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .next-steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-page">
+        <div class="success-container">
+            <div class="success-icon">✓</div>
+            <h1>Payment Successful!</h1>
+            <p>
+                Thank you for your purchase! Your payment has been processed successfully,
+                and you now have access to all FYN premium features.
+            </p>
+            
+            <div class="session-info" id="sessionInfo">
+                <strong>Order ID:</strong> Loading...
+            </div>
+
+            <a href="/" class="btn-home">Return to Homepage</a>
+
+            <div class="next-steps">
+                <h2>What's Next?</h2>
+                <ul>
+                    <li>Check your email for the receipt and confirmation</li>
+                    <li>Access your premium features immediately</li>
+                    <li>Contact support anytime at hello@thisfyn.com</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get session ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        
+        if (sessionId) {
+            document.getElementById('sessionInfo').innerHTML = `<strong>Order ID:</strong> ${sessionId}`;
+        } else {
+            document.getElementById('sessionInfo').innerHTML = `<strong>Status:</strong> Order confirmed`;
+        }
+    </script>
+</body>
+</html>
+
