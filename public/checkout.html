@@ -257,7 +257,8 @@
                 console.log('Session response:', session);
 
                 if (session.error) {
-                    throw new Error(session.error);
+                    const errorDetails = `${session.message || session.error}\nType: ${session.type || 'unknown'}\nCode: ${session.code || 'unknown'}`;
+                    throw new Error(errorDetails);
                 }
 
                 if (!session.sessionId) {

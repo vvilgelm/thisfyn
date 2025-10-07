@@ -21,6 +21,10 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    // Log for debugging
+    console.log('🔑 Stripe key status:', process.env.STRIPE_SECRET_KEY ? 'SET' : 'NOT SET');
+    console.log('🔑 Key starts with:', process.env.STRIPE_SECRET_KEY?.substring(0, 10));
+    
     // Parse body if needed
     let body = req.body;
     if (typeof body === 'string') {
@@ -29,6 +33,8 @@ module.exports = async function handler(req, res) {
     
     const { priceId, quantity = 1 } = body || {};
 
+    console.log('💳 Creating checkout session...');
+    
     // Create Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'klarna'], // Enable both card and Klarna
@@ -64,9 +70,17 @@ module.exports = async function handler(req, res) {
 
   } catch (error) {
     console.error('❌ Stripe checkout error:', error);
+    console.error('Error type:', error.type);
+    console.error('Error code:', error.code);
+    console.error('Error message:', error.message);
+    console.error('Full error:', JSON.stringify(error, null, 2));
+    
     return res.status(500).json({
       error: 'Failed to create checkout session',
       message: error.message,
+      type: error.type,
+      code: error.code,
+      details: error.raw?.message || 'No additional details',
     });
   }
 }
