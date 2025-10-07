@@ -39,7 +39,10 @@ module.exports = async function handler(req, res) {
     
     // Create Checkout Session
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'klarna'], // Enable both card and Klarna
+      // Use automatic payment methods (recommended by Stripe)
+      automatic_payment_methods: {
+        enabled: true,
+      },
       line_items: [
         {
           price_data: {
