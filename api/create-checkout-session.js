@@ -2,7 +2,9 @@
 // Creates a checkout session with Klarna enabled
 
 const Stripe = require('stripe');
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+// Trim the API key to remove any whitespace/newlines
+const stripeKey = (process.env.STRIPE_SECRET_KEY || '').trim();
+const stripe = Stripe(stripeKey);
 
 module.exports = async function handler(req, res) {
   // Set CORS headers
